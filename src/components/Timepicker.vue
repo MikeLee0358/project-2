@@ -1,38 +1,32 @@
 <script setup>
-import { computed } from 'vue';
-import TimepickerTime from './TimepickerTime.vue';
-import TimepickerSwitch from './TimepickerSwitch.vue';
-const props = defineProps(['time', 'index'])
+import { useTimepickerStore } from '@/stores/Timepicker'
+import TimepickerTime from '@/components/TimepickerTime.vue';
+import TimepickerSwitch from '@/components/TimepickerSwitch.vue';
 
-const get_WeekName = computed(() => {
-    if (props.index === undefined) throw Error('required index')
-    console.log(props.index)
-    switch (props.index) {
-        case 0:
-            return '星期一'
-        case 1:
-            return '星期二'
-        case 2:
-            return '星期三'
-        case 3:
-            return '星期四'
-        case 4:
-            return '星期五'
-        case 5:
-            return '星期六'
-        case 6:
-            return '星期日'
+const storeTimepicker = useTimepickerStore()
+const props = defineProps({
+    binaryTime: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    index: {
+        type: Number,
+        required: true
     }
 })
 </script>
 
 <template lang="pug">
 li(id="🔥TimePicker")
-    span(v-id="'Title'") {{ get_WeekName }}
-    input(v-id="`Checkbox-${props.index}`" type="checkbox" checked)
+    span(v-id="'Title'") {{ storeTimepicker.get_WeekName(name) }}
+    input(v-id="`Checkbox-${index}`" type="checkbox" checked)
     TimepickerSwitch
-    label(v-id="'Label'" :for="`🔥TimePicker__Checkbox-${props.index}`") 本日供餐
-    TimepickerTime(:time="time")
+    label(v-id="'Label'" :for="`🔥TimePicker__Checkbox-${index}`") 本日供餐
+    TimepickerTime(:binaryTime="binaryTime")
 </template>
 
 <style lang="sass">
