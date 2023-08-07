@@ -5,11 +5,11 @@ import TimepickerSwitch from '@/components/TimepickerSwitch.vue';
 
 const storeTimepicker = useTimepickerStore()
 const props = defineProps({
-    binaryTime: {
+    timeData: {
         type: String,
         required: true
     },
-    name: {
+    weekName: {
         type: String,
         required: true
     },
@@ -18,34 +18,42 @@ const props = defineProps({
         required: true
     }
 })
+
+storeTimepicker.boxHandle.handle_ToDayOff(props.timeData)
 </script>
 
 <template lang="pug">
-li(id="🔥TimePicker")
-    span(v-id="'Title'") {{ storeTimepicker.get_WeekName(name) }}
-    input(v-id="`Checkbox-${index}`" type="checkbox" checked)
-    TimepickerSwitch
-    label(v-id="'Label'" :for="`🔥TimePicker__Checkbox-${index}`") 本日供餐
-    TimepickerTime(:binaryTime="binaryTime")
+li(id="🔥Timepicker")
+    span(v-id="'Title'") {{ storeTimepicker.boxGet.get_WeekName(index, timeData)}}
+    input(v-id="`Checkbox-${index}`" type="checkbox")
+    label(v-id="`Label`" :for="`🔥Timepicker__Checkbox-${index}`")
+        TimepickerSwitch
+        span 本日供餐
+    TimepickerTime(:timeData="timeData" :weekName="weekName")
 </template>
 
 <style lang="sass">
-#🔥TimePicker
+#🔥Timepicker
     display: flex
     align-items: center
     justify-content: space-around
-    margin-bottom: 10px
     &__Title
-        color: red
-    & > input:not(:checked) // 透過css切換checked狀態時的顏色，預設checked狀態
+        color: $red
+    & > input
+        display: none
+    & > input:checked // 🔥Timepicker__Checkbox-${index} 處理切換狀態
         ~ #🔥TimepickerTime
             visibility: hidden
-        ~ #🔥TimepickerSwitch
+        ~ #🔥Timepicker__Label #🔥TimepickerSwitch
             background: $grey
             #🔥TimepickerSwitch__CircleX
                 visibility: visible
+                color: $grey
             #🔥TimepickerSwitch__CircleV
                 visibility: hidden
     &__Label
-        color: blue
+        display: flex
+        align-items: center
+        gap: 1vw
+        color: $blue
 </style>

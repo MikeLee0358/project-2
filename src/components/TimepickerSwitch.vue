@@ -1,9 +1,8 @@
 <script setup>
-
 </script>
 
 <template lang="pug">
-div(id="🔥TimepickerSwitch")
+section(id="🔥TimepickerSwitch")
     div(v-id="'CircleX'")
     div(v-id="'CircleV'")
 </template>
@@ -22,7 +21,7 @@ div(id="🔥TimepickerSwitch")
         border-radius: 15px
         transform: scale(0.75)
         color: $green
-        &::after // handle text x & v
+        &::after
             position: absolute
             left: 50%  
             top:50%
