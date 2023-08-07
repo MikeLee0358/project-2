@@ -3,13 +3,13 @@
 </script>
 
 <template lang="pug">
-div(id="🔥TimepickerSwitch")
+section(id="🔥TimepickerSwitch")
     div(v-id="'CircleX'")
     div(v-id="'CircleV'")
 </template>
 
 <style lang="sass">
-#🔥TimepickerSwitch
+#🔥TimepickerSwitch // input not checked 預設值
     width: 50px
     height: 25px
     border-radius: 15px
@@ -22,7 +22,7 @@ div(id="🔥TimepickerSwitch")
         border-radius: 15px
         transform: scale(0.75)
         color: $green
-        &::after // handle text x & v
+        &::after // 處理 x v
             position: absolute
             left: 50%  
             top:50%

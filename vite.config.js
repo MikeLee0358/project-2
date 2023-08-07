@@ -9,7 +9,7 @@ export default defineConfig({
     preprocessorOptions: {
       sass: {
         // 全域引入
-        additionalData: `@import "/src/assets/styles/variables.sass"`
+        additionalData: `@import "/src/assets/styles/main.sass"`
       }
     }
   },

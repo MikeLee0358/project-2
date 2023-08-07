@@ -2,27 +2,20 @@
 import { useTimepickerStore } from '@/stores/Timepicker'
 
 const storeTimepicker = useTimepickerStore()
-const props = defineProps({
-    binaryTime: {
-        type: String,
-        required: true
-    }
-})
+const props = defineProps(['timeData', 'weekName'])
+
 
 </script>
 
 <template lang="pug">
-div(id="🔥TimepickerTime")
+li(id="🔥TimepickerTime")
     select(v-id="'Time'")
         option(disabled) 請選擇時間
-        option(v-for="(isServedBinary, index) in binaryTime" :key="index" :disabled="isServedBinary === '0'") {{ storeTimepicker.get_Time(index) }}
+        option(v-for="(binaryData, index) in timeData" :key="index" :disabled="storeTimepicker.boxStart.get_IsDisabled(binaryData, index, timeData)"  :selected="storeTimepicker.boxStart.get_Selected(index, timeData)" @click="storeTimepicker.boxStart.update_Data(index, weekName, storeTimepicker.dummyData)") {{ storeTimepicker.boxGet.get_Time(index, timeData) }}
     span(v-id="'Dash'") -
     select(v-id="'Time'")
         option(disabled) 請選擇時間
-        option(v-for="(isServedBinary, index) in binaryTime" :key="index" :disabled="isServedBinary === '0'" v-show="index > 0") {{ storeTimepicker.get_Time(index) }}
+        option(v-for="(binaryData, index) in timeData" :key="index" :disabled="storeTimepicker.boxEnd.get_IsDisabled(binaryData, index, timeData)" :selected="storeTimepicker.boxEnd.get_IsSelected(index, timeData)" @click="storeTimepicker.boxEnd.update_Data(index, weekName, storeTimepicker.dummyData)") {{ storeTimepicker.boxGet.get_Time(index + 1, timeData) }}
 </template>
 
-<style lang="sass">
-
-</style>
 
